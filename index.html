@@ -1,0 +1,334 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="description" content="InfiniteUrban: A unified framework for controllable urban scene generation and multi-channel dataset construction." />
+  <meta name="keywords" content="InfiniteUrban, Urban Scene Generation, Procedural Generation, 3D Vision, Wave Function Collapse, Synthetic Dataset" />
+  <meta property="og:title" content="InfiniteUrban — Controllable Urban Scene Generation" />
+  <meta property="og:description" content="A unified framework for controllable urban scene generation and multi-channel dataset construction." />
+
+  <title>InfiniteUrban — Controllable Urban Scene Generation</title>
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" />
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+
+  <!-- Animated background -->
+  <div class="bg-gradient"></div>
+  <canvas id="particles" class="bg-particles"></canvas>
+
+  <!-- Top Nav -->
+  <nav class="nav">
+    <div class="nav-inner">
+      <a href="#top" class="nav-logo">
+        <span class="logo-mark">∞</span>
+        <span class="logo-text">InfiniteUrban</span>
+      </a>
+      <div class="nav-links">
+        <a href="#demo">Demo</a>
+        <a href="#abstract">Abstract</a>
+        <a href="#channels">Channels</a>
+        <a href="#method">Method</a>
+        <a href="#dataset">Dataset</a>
+        <a href="#bibtex">BibTeX</a>
+      </div>
+    </div>
+  </nav>
+
+  <!-- Hero -->
+  <header id="top" class="hero">
+    <div class="hero-inner reveal">
+      <div class="badge">
+        <span class="dot"></span>
+        <span>Procedural · Controllable · Multi-Channel</span>
+      </div>
+
+      <h1 class="title">
+        <span class="grad-text">InfiniteUrban</span>
+        <span class="subtitle-line">A Unified Framework for Controllable Urban Scene Generation<br/>and Multi-Channel Dataset Construction</span>
+      </h1>
+
+      <!-- Authors (anonymized for double-blind review) -->
+      <div class="authors">
+        <span class="author">Anonymous Author(s)</span>
+      </div>
+
+      <div class="affiliations">
+        <span>Paper under double-blind review</span>
+      </div>
+
+      <!-- Action Buttons -->
+      <div class="cta-buttons">
+        <span class="btn btn-primary is-disabled" title="The arXiv link will be released after acceptance.">
+          <i class="fas fa-file-pdf"></i>
+          <span>Paper</span>
+          <span class="btn-tag">Coming after acceptance</span>
+        </span>
+        <a class="btn" href="https://github.com/anonymous-urban-review/urban-data-generation-review" target="_blank" rel="noopener">
+          <i class="fab fa-github"></i>
+          <span>Code</span>
+        </a>
+        <a class="btn" href="https://pan.baidu.com/s/1fhYdBCr6fSz8AA8QuSEkog" target="_blank" rel="noopener" id="datasetBtn">
+          <i class="fas fa-database"></i>
+          <span>Dataset</span>
+          <span class="btn-tag">Baidu Cloud</span>
+        </a>
+        <a class="btn btn-ghost" href="#bibtex">
+          <i class="fas fa-quote-right"></i>
+          <span>BibTeX</span>
+        </a>
+      </div>
+
+    </div>
+  </header>
+
+  <!-- Top auto-scrolling image strip (001-008) -->
+  <div class="marquee reveal" aria-label="Sample renders">
+    <div class="marquee-track" data-marquee>
+      <figure class="m-item"><img class="zoomable" src="images/001.png" alt="Urban render 001" loading="lazy"></figure>
+      <figure class="m-item"><img class="zoomable" src="images/002.png" alt="Urban render 002" loading="lazy"></figure>
+      <figure class="m-item"><img class="zoomable" src="images/003.png" alt="Urban render 003" loading="lazy"></figure>
+      <figure class="m-item"><img class="zoomable" src="images/004.png" alt="Urban render 004" loading="lazy"></figure>
+      <figure class="m-item"><img class="zoomable" src="images/005.png" alt="Urban render 005" loading="lazy"></figure>
+      <figure class="m-item"><img class="zoomable" src="images/006.png" alt="Urban render 006" loading="lazy"></figure>
+      <figure class="m-item"><img class="zoomable" src="images/007.png" alt="Urban render 007" loading="lazy"></figure>
+      <figure class="m-item"><img class="zoomable" src="images/008.png" alt="Urban render 008" loading="lazy"></figure>
+    </div>
+  </div>
+
+  <!-- Demo Video -->
+  <section id="demo" class="section reveal">
+    <div class="section-head">
+      <h2><span class="num">01</span> Demo</h2>
+      <div class="rule"></div>
+    </div>
+    <p class="lead-sm">A walkthrough of the InfiniteUrban generation pipeline and rendered results.</p>
+    <div class="video-wrap">
+      <video controls preload="metadata" playsinline>
+        <source src="demo/demo_video.mp4" type="video/mp4" />
+        Your browser does not support the video tag.
+      </video>
+    </div>
+  </section>
+
+  <!-- Abstract -->
+  <section id="abstract" class="section reveal">
+    <div class="section-head">
+      <h2><span class="num">02</span> Abstract</h2>
+      <div class="rule"></div>
+    </div>
+    <p class="lead">
+      High-quality urban data is essential for city-scale 3D vision, simulation, and embodied perception, yet real-world collection
+      remains expensive, time-consuming, and difficult to annotate at scale. Existing synthetic datasets improve controllability and
+      annotation efficiency, but often rely on fixed maps, limited scene diversity, or task-specific data generation pipelines.
+      In this paper, we present <strong>InfiniteUrban</strong>, a unified framework for controllable urban scene generation and
+      multi-channel dataset construction. InfiniteUrban consists of four stages:
+      <em>(1)</em> structured parameter parsing from high-level user descriptions,
+      <em>(2)</em> constraint-aware road layout synthesis based on a Wave Function Collapse-Tiling Generator (WFC-TG),
+      <em>(3)</em> hierarchical procedural urban scene construction with documented PCG modules, and
+      <em>(4)</em> automated multi-view data acquisition with synchronized multi-channel rendering.
+      The framework supports controllable generation over road topology, building profiles, environmental conditions, and
+      dynamic scene elements, while producing <strong>13 pixel-aligned channels</strong> from aerial and street-level viewpoints.
+      Based on this framework, we build <strong>Urban1K</strong>, a benchmark subset for evaluating view synthesis and urban
+      perception tasks. Experiments on Urban1K show that the generated data provides effective supervision for neural rendering,
+      depth estimation, normal prediction, and semantic segmentation, and exhibits promising transfer to real-world benchmarks.
+    </p>
+
+    <div class="stats">
+      <div class="stat">
+        <div class="stat-num" data-target="4">0</div>
+        <div class="stat-label">Pipeline Stages</div>
+      </div>
+      <div class="stat">
+        <div class="stat-num" data-target="13">0</div>
+        <div class="stat-label">Aligned Channels</div>
+      </div>
+      <div class="stat">
+        <div class="stat-num" data-target="1000" data-suffix="+">0</div>
+        <div class="stat-label">Urban1K Scenes</div>
+      </div>
+      <div class="stat">
+        <div class="stat-num" data-target="2">0</div>
+        <div class="stat-label">View Modalities</div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Overview: teaser + pipeline carousel -->
+  <section id="overview" class="section reveal">
+    <div class="section-head">
+      <h2><span class="num">03</span> Overview</h2>
+      <div class="rule"></div>
+    </div>
+    <p class="lead-sm">Framework teaser and pipeline overview — auto-rotating.</p>
+
+    <div class="carousel" data-carousel data-per-view="1" data-autoplay="5000">
+      <div class="carousel-stage">
+        <div class="carousel-viewport">
+          <div class="carousel-track">
+            <figure class="c-slide">
+              <div class="c-frame"><img class="zoomable" src="images/teaser.svg" alt="Teaser overview" /></div>
+              <figcaption>Teaser — From text descriptions to multi-channel urban data</figcaption>
+            </figure>
+            <figure class="c-slide">
+              <div class="c-frame"><img class="zoomable" src="images/fig1.svg" alt="Pipeline overview" /></div>
+              <figcaption>Pipeline Overview</figcaption>
+            </figure>
+          </div>
+        </div>
+        <button class="c-arrow c-prev" aria-label="Previous"><i class="fas fa-chevron-left"></i></button>
+        <button class="c-arrow c-next" aria-label="Next"><i class="fas fa-chevron-right"></i></button>
+      </div>
+      <div class="c-dots"></div>
+    </div>
+  </section>
+
+  <!-- 13 Aligned Channels -->
+  <section id="channels" class="section reveal">
+    <div class="section-head">
+      <h2><span class="num">04</span> 13 Aligned Channels</h2>
+      <div class="rule"></div>
+    </div>
+    <p class="lead-sm">Synchronized, pixel-aligned multi-channel rendering of a single viewpoint. The viewer cycles through all 13 channels.</p>
+
+    <div class="carousel channels" data-carousel data-per-view="4" data-autoplay="3200">
+      <div class="carousel-stage">
+        <div class="carousel-viewport">
+          <div class="carousel-track">
+            <figure class="c-slide"><div class="c-frame"><img class="zoomable" src="images/13/combined_83.png" alt="Combined RGB" loading="lazy" /></div><figcaption>Combined (RGB)</figcaption></figure>
+            <figure class="c-slide"><div class="c-frame"><img class="zoomable" src="images/13/diffuse_color_83.png" alt="Diffuse color" loading="lazy" /></div><figcaption>Diffuse Color</figcaption></figure>
+            <figure class="c-slide"><div class="c-frame"><img class="zoomable" src="images/13/glossy_color_83.png" alt="Glossy color" loading="lazy" /></div><figcaption>Glossy Color</figcaption></figure>
+            <figure class="c-slide"><div class="c-frame"><img class="zoomable" src="images/13/transmission_color_83.png" alt="Transmission color" loading="lazy" /></div><figcaption>Transmission Color</figcaption></figure>
+            <figure class="c-slide"><div class="c-frame"><img class="zoomable" src="images/13/normal_83.png" alt="Normal" loading="lazy" /></div><figcaption>Normal</figcaption></figure>
+            <figure class="c-slide"><div class="c-frame"><img class="zoomable" src="images/13/depth_83.png" alt="Depth" loading="lazy" /></div><figcaption>Depth</figcaption></figure>
+            <figure class="c-slide"><div class="c-frame"><img class="zoomable" src="images/13/ao_83.png" alt="Ambient occlusion" loading="lazy" /></div><figcaption>Ambient Occlusion</figcaption></figure>
+            <figure class="c-slide"><div class="c-frame"><img class="zoomable" src="images/13/shadow_1554.png" alt="Shadow" loading="lazy" /></div><figcaption>Shadow</figcaption></figure>
+            <figure class="c-slide"><div class="c-frame"><img class="zoomable" src="images/13/material_index_83.png" alt="Material index" loading="lazy" /></div><figcaption>Material Index</figcaption></figure>
+            <figure class="c-slide"><div class="c-frame"><img class="zoomable" src="images/13/object_index_83.png" alt="Object index" loading="lazy" /></div><figcaption>Object Index</figcaption></figure>
+            <figure class="c-slide"><div class="c-frame"><img class="zoomable" src="images/13/cryptomatte_object_83.png" alt="Cryptomatte object" loading="lazy" /></div><figcaption>Cryptomatte · Object</figcaption></figure>
+            <figure class="c-slide"><div class="c-frame"><img class="zoomable" src="images/13/cryptomatte_material_83.png" alt="Cryptomatte material" loading="lazy" /></div><figcaption>Cryptomatte · Material</figcaption></figure>
+            <figure class="c-slide"><div class="c-frame"><img class="zoomable" src="images/13/cryptomatte_asset_83.png" alt="Cryptomatte asset" loading="lazy" /></div><figcaption>Cryptomatte · Asset</figcaption></figure>
+          </div>
+        </div>
+        <button class="c-arrow c-prev" aria-label="Previous"><i class="fas fa-chevron-left"></i></button>
+        <button class="c-arrow c-next" aria-label="Next"><i class="fas fa-chevron-right"></i></button>
+      </div>
+      <div class="c-dots"></div>
+    </div>
+  </section>
+
+  <!-- Method / Pipeline -->
+  <section id="method" class="section reveal">
+    <div class="section-head">
+      <h2><span class="num">05</span> Framework</h2>
+      <div class="rule"></div>
+    </div>
+
+    <div class="pipeline">
+      <div class="step">
+        <div class="step-icon"><i class="fas fa-keyboard"></i></div>
+        <div class="step-num">01</div>
+        <h3>Parameter Parsing</h3>
+        <p>Structured parameter parsing from high-level user descriptions.</p>
+      </div>
+      <div class="step-arrow"><i class="fas fa-arrow-right"></i></div>
+      <div class="step">
+        <div class="step-icon"><i class="fas fa-diagram-project"></i></div>
+        <div class="step-num">02</div>
+        <h3>WFC-TG Layout</h3>
+        <p>Constraint-aware road layout synthesis with Wave Function Collapse Tiling Generator.</p>
+      </div>
+      <div class="step-arrow"><i class="fas fa-arrow-right"></i></div>
+      <div class="step">
+        <div class="step-icon"><i class="fas fa-city"></i></div>
+        <div class="step-num">03</div>
+        <h3>Procedural Scenes</h3>
+        <p>Hierarchical PCG modules for buildings, vegetation, and environments.</p>
+      </div>
+      <div class="step-arrow"><i class="fas fa-arrow-right"></i></div>
+      <div class="step">
+        <div class="step-icon"><i class="fas fa-camera"></i></div>
+        <div class="step-num">04</div>
+        <h3>Multi-Channel Capture</h3>
+        <p>Automated multi-view acquisition with 13 synchronized aligned channels.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- Dataset -->
+  <section id="dataset" class="section reveal">
+    <div class="section-head">
+      <h2><span class="num">06</span> Urban1K Dataset</h2>
+      <div class="rule"></div>
+    </div>
+
+    <div class="dataset-card">
+      <div class="ds-left">
+        <h3>Get the Data</h3>
+        <p>The Urban1K benchmark subset is currently distributed via Baidu Cloud. Click below to open the download link, then use the extraction code <code>pf32</code>.</p>
+        <div class="ds-buttons">
+          <a href="https://pan.baidu.com/s/1fhYdBCr6fSz8AA8QuSEkog" class="btn btn-primary" target="_blank" rel="noopener">
+            <i class="fas fa-cloud-arrow-down"></i>
+            <span>Download · Baidu Cloud</span>
+          </a>
+          <button class="btn btn-ghost" id="copyCode">
+            <i class="fas fa-key"></i>
+            <span>Extraction Code: pf32</span>
+          </button>
+        </div>
+        <p class="ds-tip"><i class="fas fa-circle-info"></i> Extraction code: <code>pf32</code></p>
+      </div>
+      <div class="ds-right">
+        <div class="ds-grid">
+          <div><strong>13</strong><span>RGB / Depth / Normal / Semantic / …</span></div>
+          <div><strong>2</strong><span>Aerial &amp; Street-level views</span></div>
+          <div><strong>1K+</strong><span>Diverse urban scenes</span></div>
+          <div><strong>Sync</strong><span>Pixel-aligned channels</span></div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- BibTeX -->
+  <section id="bibtex" class="section reveal">
+    <div class="section-head">
+      <h2><span class="num">07</span> Citation</h2>
+      <div class="rule"></div>
+    </div>
+
+    <div class="bib-wrap">
+      <button class="copy-btn" id="copyBib"><i class="fas fa-copy"></i> Copy</button>
+<pre id="bibText">@article{anonymous2026infiniteurban,
+  title   = {InfiniteUrban: A Unified Framework for Controllable Urban Scene
+             Generation and Multi-Channel Dataset Construction},
+  author  = {Anonymous Author(s)},
+  journal = {Under review},
+  note    = {Citation details available after acceptance},
+  year    = {2026}
+}</pre>
+    </div>
+  </section>
+
+  <footer class="footer">
+    <p>InfiniteUrban · Anonymous project page for double-blind review</p>
+    <p class="muted">Author and institution information is withheld during the review period.</p>
+  </footer>
+
+  <button id="toTop" class="to-top" aria-label="Back to top"><i class="fas fa-arrow-up"></i></button>
+
+  <!-- Lightbox -->
+  <div class="lightbox" id="lightbox" aria-hidden="true">
+    <button class="lb-close" aria-label="Close">&times;</button>
+    <img class="lb-img" src="" alt="" />
+    <div class="lb-cap"></div>
+  </div>
+
+  <script src="script.js"></script>
+</body>
+</html>
